@@ -12,7 +12,7 @@ export const THEME_COLORS: ColorSwatch = {
   secondary: '#70a2e7',
   tertiary: '#b373f2',
   text: 'black',
-  background: 'white',
+  background: '#9cc6de',
   contentBackground: 'white',
 };
 

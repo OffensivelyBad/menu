@@ -5,16 +5,16 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: THEME_COLORS.background,
-    padding: 15,
-    alignItems: 'center',
-  },
-  content: {
-    maxWidth: 600,
+    paddingTop: 40,
   },
   title: {
     alignSelf: 'flex-start',
     fontSize: 24,
     color: THEME_COLORS.text,
+    margin: 8,
+  },
+  scrollViewContent: {
+    flex: 1,
   },
 });
 

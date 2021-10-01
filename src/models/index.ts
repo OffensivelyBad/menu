@@ -22,4 +22,4 @@ const menuItem2: MenuItemModel = {
   price: '$12.34',
 };
 
-export const MenuItem_Test = [menuItem1, menuItem2];
+export const MenuItem_Test = [menuItem1, menuItem2, menuItem1, menuItem2, menuItem1, menuItem2, menuItem1, menuItem2];

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, FlatList, ListRenderItem } from 'react-native';
 import MenuItem from '../../components/menu_item';
 import { MenuItemModel, MenuItem_Test } from '../../models';
 import styles from './styles';
@@ -17,20 +17,27 @@ const App = () => {
     }
   }, []);
 
+  const renderItem: ListRenderItem<MenuItemModel> = ({ item }) => {
+    const { id, image, title, description, price } = item;
+    return (
+      <MenuItem
+        key={id}
+        image={image}
+        title={title}
+        description={description}
+        price={price}
+      />
+    );
+  };
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Menu</Text>
-      <View style={styles.content}>
-        {menuItems.map(item => (
-          <MenuItem
-            key={item.id}
-            image={item.image}
-            title={item.title}
-            description={item.description}
-            price={item.price}
-          />
-        ))}
-      </View>
+      <FlatList
+        data={menuItems}
+        renderItem={renderItem}
+        keyExtractor={item => item.id}
+      />
     </View>
   );
 };
