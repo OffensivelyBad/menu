@@ -1,16 +1,15 @@
 import * as React from 'react';
 import { View, Text, Image } from 'react-native';
+import { MenuItemModel } from '../../models';
 import styles from './styles';
 
 type Props = {
-  description: string;
-  image: string;
-  price: string;
-  title: string;
+  item: MenuItemModel,
+  onDelete: (item: MenuItemModel) => void;
 }
 
 const MenuItem = (props: Props) => {
-  const { description, image, price, title } = props;
+  const { item: { description, image, price, title }, onDelete } = props;
 
   return (
     <View style={styles.container}>

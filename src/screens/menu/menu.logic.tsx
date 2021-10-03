@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { MenuProps } from '.';
-import { MenuItem_Test } from '../../models';
+import { MenuItemModel, MenuItem_Test } from '../../models';
 import { NavigationPropList, NavigationScreens } from '../../models/navigation';
 import MenuLayout from './menu.layout';
-import { useItems, useAddItems, useRemoveAllItems } from '../../hooks';
+import { useItems, useAddItems, useRemoveAllItems, useRemoveItem } from '../../hooks';
 
 const UI_TESTING = true;
 
@@ -18,6 +18,7 @@ const Menu = (_props: MenuScreenProps) => {
   const [loadingMessage, setLoadingMessage] = React.useState<string | undefined>();
   const menuItems = useItems();
   const addItems = useAddItems();
+  const removeItem = useRemoveItem();
   const removeAllItems = useRemoveAllItems();
 
   const fetchMenuItemData = React.useCallback(() => {
@@ -38,9 +39,14 @@ const Menu = (_props: MenuScreenProps) => {
     fetchMenuItemData();
   }, [fetchMenuItemData]);
 
+  const onDeleteItem = (item: MenuItemModel) => {
+    removeItem(item);
+  };
+
   return <MenuLayout
     menuItems={menuItems}
     loadingMessage={loadingMessage}
+    onDeleteItem={onDeleteItem}
   />;
 };
 

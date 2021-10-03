@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { View, FlatList, ListRenderItem, ActivityIndicator, Text } from 'react-native';
+import { View, FlatList, ActivityIndicator, Text } from 'react-native';
 import MenuItem from '../../components/menu_item';
 import { MenuItemModel } from '../../models';
 import styles from './styles';
@@ -7,20 +7,19 @@ import styles from './styles';
 type Props = {
   menuItems: MenuItemModel[];
   loadingMessage?: string;
+  onDeleteItem: (item: MenuItemModel) => void;
 }
 
 const MenuLayout = (props: Props) => {
-  const { menuItems, loadingMessage } = props;
+  const { menuItems, loadingMessage, onDeleteItem } = props;
 
-  const renderItem: ListRenderItem<MenuItemModel> = ({ item }) => {
-    const { id, image, title, description, price } = item;
+  const renderItem = (item: MenuItemModel) => {
+    const { id } = item;
     return (
       <MenuItem
         key={id}
-        image={image}
-        title={title}
-        description={description}
-        price={price}
+        item={item}
+        onDelete={onDeleteItem}
       />
     );
   };
@@ -35,7 +34,7 @@ const MenuLayout = (props: Props) => {
       ) : (
         <FlatList
           data={menuItems}
-          renderItem={renderItem}
+          renderItem={({ item }) => renderItem(item)}
           keyExtractor={item => item.id}
           contentContainerStyle={styles.listContainer}
         />
