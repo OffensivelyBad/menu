@@ -3,7 +3,7 @@
  */
 
 import 'react-native';
-import { getMenuItemFromInput, removeMenuItem } from '../src/utils';
+import { getMenuItemFromInput, removeMenuItem, replaceMenuItem } from '../src/utils';
 import { MenuItem_Test } from '../src/models';
 
 describe('utils', () => {
@@ -27,5 +27,14 @@ describe('utils', () => {
 
     expect(newItems.length).toBe(MenuItem_Test.length - 1);
     expect(newItems).not.toContain(randomItem);
+  });
+
+  test('replaceMenuItem updates the item', () => {
+    const item = MenuItem_Test[0];
+    const title = 'this is a new title';
+    const newItems = replaceMenuItem(item, { ...item, title }, MenuItem_Test);
+
+    expect(newItems.length).toBe(MenuItem_Test.length);
+    expect(newItems[0].title).toEqual(title);
   });
 });
