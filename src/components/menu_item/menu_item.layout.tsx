@@ -2,17 +2,53 @@ import * as React from 'react';
 import { View, Text, Image, Pressable } from 'react-native';
 import { Swipeable } from 'react-native-gesture-handler';
 import { MenuItemModel } from '../../models';
+import EditableText from '../editable_text/editable_text.layout';
 import styles from './styles';
 
 type Props = {
   item: MenuItemModel,
   onDelete?: (item: MenuItemModel, callback?: (shouldDelete: boolean) => void) => void;
+  updateItem?: (currentItem: MenuItemModel, newItem: MenuItemModel) => void;
 }
 
 const MenuItem = (props: Props) => {
   const swipeableRef = React.useRef<Swipeable | null>(null);
-  const { item, onDelete } = props;
-  const { description, image, price, title } = item;
+  const { item, onDelete, updateItem } = props;
+
+  const [newItem, setNewItem] = React.useState(item);
+  const { description, image, price, title } = newItem;
+
+  const [newTitle, setNewTitle] = React.useState(title);
+  const [newDescription, setNewDescription] = React.useState(description);
+  const [newPrice, setNewPrice] = React.useState(price);
+  const [newImage, setNewImage] = React.useState(image);
+
+  React.useEffect(() => {
+    // Keep the item up to date
+    setNewItem(item);
+  }, [item, setNewItem]);
+
+  React.useEffect(() => {
+    // If the new item changes, update it the state
+    updateItem ? updateItem(item, newItem) : null;
+  }, [item, newItem, updateItem]);
+
+  React.useEffect(() => {
+    // If any of the new fields changes, set the new item so that it updates
+    const { title: oldTitle, description: oldDescription, price: oldPrice, image: oldImage } = newItem;
+    if (newTitle !== oldTitle) {
+      setNewItem({ ...newItem, title: newTitle });
+    }
+    if (newDescription !== oldDescription) {
+      setNewItem({ ...newItem, title: newDescription });
+    }
+    if (newPrice !== oldPrice) {
+      setNewItem({ ...newItem, title: newPrice });
+    }
+    if (newImage !== oldImage) {
+      setNewItem({ ...newItem, title: newImage });
+    }
+  }, [newItem, newTitle, newDescription, newPrice, newImage]);
 
   const renderRightActions = (
     onPress: () => void
@@ -42,8 +78,6 @@ const MenuItem = (props: Props) => {
     }
   }, [item, onDelete]);
 
-
-
   return (
     <Swipeable
       ref={swipeableRef}
@@ -54,9 +88,10 @@ const MenuItem = (props: Props) => {
       <View style={styles.container}>
         <Image style={styles.image} source={{ uri: image }} />
         <View style={styles.content}>
-          <Text style={styles.title}>{title}</Text>
-          <Text style={styles.price}>{price}</Text>
-          <Text style={styles.description}>{description}</Text>
+          <EditableText value={newTitle} onChangeText={setNewTitle} style={styles.title} />
+          <EditableText value={newPrice} onChangeText={setNewPrice} style={styles.price} />
+          <EditableText value={newDescription} onChangeText={setNewDescription} style={styles.description} />
+          <EditableText value={newImage} onChangeText={setNewImage} style={styles.imageURL} />
         </View>
       </View>
     </Swipeable>
