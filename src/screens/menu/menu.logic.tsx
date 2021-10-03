@@ -5,7 +5,7 @@ import { MenuProps } from '.';
 import { MenuItemModel, MenuItem_Test } from '../../models';
 import { NavigationPropList, NavigationScreens } from '../../models/navigation';
 import MenuLayout from './menu.layout';
-import { useItems, useAddItems, useRemoveAllItems, useRemoveItem } from '../../hooks';
+import { useItems, useAddItems, useRemoveAllItems, useRemoveItem, useReplaceItem } from '../../hooks';
 
 const UI_TESTING = true;
 
@@ -21,6 +21,7 @@ const Menu = (_props: MenuScreenProps) => {
   const addItems = useAddItems();
   const removeItem = useRemoveItem();
   const removeAllItems = useRemoveAllItems();
+  const replaceItem = useReplaceItem();
 
   const fetchMenuItemData = React.useCallback(() => {
     setLoadingMessage('Getting menu...');
@@ -59,10 +60,16 @@ const Menu = (_props: MenuScreenProps) => {
     Alert.alert('Are you sure?', `Delete ${item.title} from the menu?`, [deleteButton, cancelButton]);
   };
 
+  const onUpdateItem = React.useCallback((currentItem: MenuItemModel, newItem: MenuItemModel) => {
+    console.log('updating..');
+    replaceItem(currentItem, newItem);
+  }, [replaceItem]);
+
   return <MenuLayout
     menuItems={menuItems}
     loadingMessage={loadingMessage}
     onDeleteItem={onDeleteItem}
+    onUpdateItem={onUpdateItem}
   />;
 };
 

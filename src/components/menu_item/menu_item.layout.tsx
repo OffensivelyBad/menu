@@ -24,17 +24,10 @@ const MenuItem = (props: Props) => {
   const [newImage, setNewImage] = React.useState(image);
 
   React.useEffect(() => {
-    // Keep the item up to date
-    setNewItem(item);
-  }, [item, setNewItem]);
-
-  React.useEffect(() => {
-    // If the new item changes, update it the state
     updateItem ? updateItem(item, newItem) : null;
   }, [item, newItem, updateItem]);
 
-  React.useEffect(() => {
-    // If any of the new fields changes, set the new item so that it updates
+  const onSubmit = React.useCallback(() => {
     const { title: oldTitle, description: oldDescription, price: oldPrice, image: oldImage } = newItem;
     if (newTitle !== oldTitle) {
       setNewItem({ ...newItem, title: newTitle });
@@ -48,7 +41,7 @@ const MenuItem = (props: Props) => {
     if (newImage !== oldImage) {
       setNewItem({ ...newItem, title: newImage });
     }
-  }, [newItem, newTitle, newDescription, newPrice, newImage]);
+  }, [newDescription, newImage, newItem, newPrice, newTitle]);
 
   const renderRightActions = (
     onPress: () => void
@@ -86,13 +79,15 @@ const MenuItem = (props: Props) => {
       enableTrackpadTwoFingerGesture
     >
       <View style={styles.container}>
-        <Image style={styles.image} source={{ uri: image }} />
-        <View style={styles.content}>
-          <EditableText value={newTitle} onChangeText={setNewTitle} style={styles.title} />
-          <EditableText value={newPrice} onChangeText={setNewPrice} style={styles.price} />
-          <EditableText value={newDescription} onChangeText={setNewDescription} style={styles.description} />
-          <EditableText value={newImage} onChangeText={setNewImage} style={styles.imageURL} />
+        <View style={styles.subContainer}>
+          <Image style={styles.image} source={{ uri: newImage }} />
+          <View style={styles.content}>
+            <EditableText value={newTitle} onChangeText={setNewTitle} onSubmit={onSubmit} style={styles.title} />
+            <EditableText value={newPrice} onChangeText={setNewPrice} onSubmit={onSubmit} style={styles.price} />
+            <EditableText value={newDescription} onChangeText={setNewDescription} onSubmit={onSubmit} style={styles.description} />
+          </View>
         </View>
+        <EditableText value={newImage} onChangeText={setNewImage} onSubmit={onSubmit} style={styles.imageURL} />
       </View>
     </Swipeable>
   );

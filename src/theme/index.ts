@@ -19,12 +19,12 @@ export const THEME_COLORS: ColorSwatch = {
 };
 
 export const SHADOW = {
-  shadowColor: '#000',
-  shadowOffset: {
-    width: 0,
-    height: 3,
-  },
-  shadowOpacity: 0.1,
-  shadowRadius: 4.0,
-  elevation: 4,
+  // shadowColor: '#000',
+  // shadowOffset: {
+  //   width: 0,
+  //   height: 3,
+  // },
+  // shadowOpacity: 0.1,
+  // shadowRadius: 4.0,
+  // elevation: 4,
 };

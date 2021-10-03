@@ -9,15 +9,18 @@ const styles = StyleSheet.create({
   container: {
     width: '96%',
     backgroundColor: THEME_COLORS.contentBackground,
-    flexDirection: 'row',
     height: CARD_HEIGHT,
     borderRadius: BORDER_RADIUS,
     marginVertical: 4,
     alignSelf: 'center',
+    justifyContent: 'space-around',
+    alignItems: 'center',
     ...SHADOW,
   },
   subContainer: {
-
+    backgroundColor: THEME_COLORS.contentBackground,
+    flexDirection: 'row',
+    alignSelf: 'center',
   },
   image: {
     height: IMAGE_HEIGHT,

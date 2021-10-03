@@ -25,3 +25,9 @@ export const removeMenuItem = (itemToRemove: MenuItemModel, currentItems: MenuIt
   const newItems = currentItems.filter(item => item.id !== itemToRemove.id);
   return newItems;
 };
+
+export const replaceMenuItem = (oldItem: MenuItemModel, newItem: MenuItemModel, currentItems: MenuItemModel[]) => {
+  const index = currentItems.findIndex(item => item.id === oldItem.id);
+  currentItems[index] = newItem;
+  return currentItems;
+};

@@ -25,3 +25,8 @@ export const useRemoveAllItems = (): () => void => {
   const removeAllItems = useMenuItemStore(state => state.removeAllItems);
   return removeAllItems;
 };
+
+export const useReplaceItem = (): (oldItem: MenuItemModel, newItem: MenuItemModel) => void => {
+  const replaceItem = useMenuItemStore(state => state.replaceItem);
+  return replaceItem;
+};

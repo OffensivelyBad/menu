@@ -4,12 +4,13 @@ import { Pressable, Text, TextStyle, StyleProp, TextInput } from 'react-native';
 type Props = {
   value: string;
   onChangeText: (text: string) => void;
+  onSubmit: () => void;
   style?: StyleProp<TextStyle>
 };
 
 const EditableText = (props: Props) => {
   const tfRef = React.useRef<TextInput | null>(null);
-  const { value, onChangeText, style } = props;
+  const { value, onChangeText, style, onSubmit } = props;
   const [editing, setEditing] = React.useState(false);
 
   React.useEffect(() => {
@@ -17,6 +18,11 @@ const EditableText = (props: Props) => {
       tfRef?.current?.focus();
     }
   }, [editing, setEditing]);
+
+  const onEndEditing = React.useCallback(() => {
+    setEditing(false);
+    onSubmit();
+  }, [onSubmit, setEditing]);
 
   return (
     <>
@@ -26,7 +32,7 @@ const EditableText = (props: Props) => {
             ref={tfRef}
             value={value}
             onChangeText={onChangeText}
-            onEndEditing={() => setEditing(false)}
+            onEndEditing={onEndEditing}
             style={style}
           />
           :

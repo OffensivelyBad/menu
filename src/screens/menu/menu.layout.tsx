@@ -8,10 +8,11 @@ type Props = {
   menuItems: MenuItemModel[];
   loadingMessage?: string;
   onDeleteItem: (item: MenuItemModel) => void;
+  onUpdateItem: (currentItem: MenuItemModel, newItem: MenuItemModel) => void;
 }
 
 const MenuLayout = (props: Props) => {
-  const { menuItems, loadingMessage, onDeleteItem } = props;
+  const { menuItems, loadingMessage, onDeleteItem, onUpdateItem } = props;
 
   const renderItem = (item: MenuItemModel) => {
     const { id } = item;
@@ -20,6 +21,7 @@ const MenuLayout = (props: Props) => {
         key={id}
         item={item}
         onDelete={onDeleteItem}
+        updateItem={onUpdateItem}
       />
     );
   };
