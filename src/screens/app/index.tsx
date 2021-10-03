@@ -1,44 +1,56 @@
 import * as React from 'react';
-import { View, Text, FlatList, ListRenderItem } from 'react-native';
-import MenuItem from '../../components/menu_item';
-import { MenuItemModel, MenuItem_Test } from '../../models';
+import { Pressable, Text } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import Menu from '../menu';
+import { NavigationPropList, NavigationScreens } from '../../models/navigation';
+import EditMenu from '../edit_menu';
 import styles from './styles';
+import { useMenuItemStore } from '../../models/store';
 
-const UI_TESTING = true;
+const Stack = createStackNavigator<NavigationPropList>();
 
 const App = () => {
-  const [menuItems, setMenuItems] = React.useState<MenuItemModel[]>([]);
-
-  React.useEffect(() => {
-    if (UI_TESTING) {
-      setMenuItems(MenuItem_Test);
-    } else {
-      // TODO: fetch data
-    }
-  }, []);
-
-  const renderItem: ListRenderItem<MenuItemModel> = ({ item }) => {
-    const { id, image, title, description, price } = item;
-    return (
-      <MenuItem
-        key={id}
-        image={image}
-        title={title}
-        description={description}
-        price={price}
-      />
-    );
-  };
+  useMenuItemStore();
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Menu</Text>
-      <FlatList
-        data={menuItems}
-        renderItem={renderItem}
-        keyExtractor={item => item.id}
-      />
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator
+        screenOptions={{
+          presentation: 'modal',
+        }}
+      >
+        <Stack.Screen
+          name={NavigationScreens.Menu}
+          component={Menu}
+          options={({ navigation }) => ({
+            headerRight: () => (
+              <Pressable
+                onPress={() => navigation.navigate(NavigationScreens.EditMenu)}
+                style={styles.addButtonContainer}
+              >
+                <Text style={styles.addButton}>+</Text>
+              </Pressable>
+            ),
+          })}
+        />
+        <Stack.Screen
+          name={NavigationScreens.EditMenu}
+          component={EditMenu}
+          options={({ navigation }) => ({
+            title: 'Add Item',
+            headerLeft: () => (
+              <Pressable
+                onPress={() => navigation.pop()}
+                style={styles.addButtonContainer}
+              >
+                <Text style={styles.textButton}>Cancel</Text>
+              </Pressable>
+            ),
+          })}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 };
 

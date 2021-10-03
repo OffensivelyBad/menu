@@ -23,8 +23,9 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: BORDER_RADIUS,
   },
   content: {
-    justifyContent: 'space-around',
     flex: 1,
+    justifyContent: 'space-around',
+    padding: 2,
   },
   title: {
     fontSize: 18,

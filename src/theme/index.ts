@@ -5,6 +5,7 @@ export type ColorSwatch = {
   text: string;
   background: string;
   contentBackground: string;
+  disabled: string;
 };
 
 export const THEME_COLORS: ColorSwatch = {
@@ -12,8 +13,9 @@ export const THEME_COLORS: ColorSwatch = {
   secondary: '#70a2e7',
   tertiary: '#b373f2',
   text: 'black',
-  background: '#9cc6de',
+  background: 'white',
   contentBackground: 'white',
+  disabled: '#babbba',
 };
 
 export const SHADOW = {
