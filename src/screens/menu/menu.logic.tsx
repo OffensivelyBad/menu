@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Alert, AlertButton } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { MenuProps } from '.';
 import { MenuItemModel, MenuItem_Test } from '../../models';
@@ -39,8 +40,23 @@ const Menu = (_props: MenuScreenProps) => {
     fetchMenuItemData();
   }, [fetchMenuItemData]);
 
-  const onDeleteItem = (item: MenuItemModel) => {
-    removeItem(item);
+  const onDeleteItem = (item: MenuItemModel, callback?: (shouldDelete: boolean) => void) => {
+    const onDelete = () => {
+      if (callback) {
+        callback(true);
+      }
+      removeItem(item);
+    };
+
+    const onCancel = () => {
+      if (callback) {
+        callback(false);
+      }
+    };
+
+    const deleteButton: AlertButton = { text: 'Delete', onPress: onDelete, style: 'destructive' };
+    const cancelButton: AlertButton = { text: 'Cancel', onPress: onCancel, style: 'cancel' };
+    Alert.alert('Are you sure?', `Delete ${item.title} from the menu?`, [deleteButton, cancelButton]);
   };
 
   return <MenuLayout

@@ -39,6 +39,20 @@ const styles = StyleSheet.create({
     fontSize: 15,
     color: 'gray',
   },
+  deleteButton: {
+    width: 100,
+    backgroundColor: 'red',
+    height: CARD_HEIGHT,
+    borderRadius: BORDER_RADIUS,
+    marginVertical: 4,
+    alignSelf: 'center',
+    marginEnd: 8,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  deleteText: {
+    color: 'white',
+  },
 });
 
 export default styles;
