@@ -13,18 +13,18 @@ export const THEME_COLORS: ColorSwatch = {
   secondary: '#70a2e7',
   tertiary: '#b373f2',
   text: 'black',
-  background: 'white',
+  background: '#babbba',
   contentBackground: 'white',
   disabled: '#babbba',
 };
 
 export const SHADOW = {
-  // shadowColor: '#000',
-  // shadowOffset: {
-  //   width: 0,
-  //   height: 3,
-  // },
-  // shadowOpacity: 0.1,
-  // shadowRadius: 4.0,
-  // elevation: 4,
+  shadowColor: '#000',
+  shadowOffset: {
+    width: 0,
+    height: 3,
+  },
+  shadowOpacity: 0.1,
+  shadowRadius: 4.0,
+  elevation: 4,
 };

@@ -5,7 +5,7 @@ import { MenuProps } from '.';
 import { MenuItemModel, MenuItem_Test } from '../../models';
 import { NavigationPropList, NavigationScreens } from '../../models/navigation';
 import MenuLayout from './menu.layout';
-import { useItems, useAddItems, useRemoveAllItems, useRemoveItem, useReplaceItem } from '../../hooks';
+import { useItems, useAddItems, useRemoveItem, useReplaceItem } from '../../hooks';
 
 const UI_TESTING = true;
 
@@ -16,30 +16,32 @@ interface MenuScreenProps {
 }
 
 const Menu = (_props: MenuScreenProps) => {
-  const [loadingMessage, setLoadingMessage] = React.useState<string | undefined>();
+  const [refreshing, setRefreshing] = React.useState(false);
   const menuItems = useItems();
   const addItems = useAddItems();
   const removeItem = useRemoveItem();
-  const removeAllItems = useRemoveAllItems();
   const replaceItem = useReplaceItem();
 
   const fetchMenuItemData = React.useCallback(() => {
-    setLoadingMessage('Getting menu...');
-    removeAllItems();
+    setRefreshing(true);
 
     if (UI_TESTING) {
       setTimeout(() => {
-        setLoadingMessage(undefined);
-        addItems(MenuItem_Test);
-      }, 1000);
+        setRefreshing(false);
+        if (!menuItems.length) {
+          addItems(MenuItem_Test);
+        }
+      }, 2000);
     } else {
-      // TODO: fetch data
+      // TODO: fetch data from server
     }
-  }, [addItems, removeAllItems]);
+  }, [addItems, menuItems, setRefreshing]);
 
   React.useEffect(() => {
-    fetchMenuItemData();
-  }, [fetchMenuItemData]);
+    if (!menuItems.length) {
+      fetchMenuItemData();
+    }
+  }, [fetchMenuItemData, menuItems]);
 
   const onDeleteItem = (item: MenuItemModel, callback?: (shouldDelete: boolean) => void) => {
     const onDelete = () => {
@@ -61,15 +63,19 @@ const Menu = (_props: MenuScreenProps) => {
   };
 
   const onUpdateItem = React.useCallback((currentItem: MenuItemModel, newItem: MenuItemModel) => {
-    console.log('updating..');
     replaceItem(currentItem, newItem);
   }, [replaceItem]);
 
+  const onRefresh = () => {
+    fetchMenuItemData();
+  };
+
   return <MenuLayout
     menuItems={menuItems}
-    loadingMessage={loadingMessage}
+    refreshing={refreshing}
     onDeleteItem={onDeleteItem}
     onUpdateItem={onUpdateItem}
+    onRefresh={onRefresh}
   />;
 };
 

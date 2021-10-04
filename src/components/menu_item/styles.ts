@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 import { THEME_COLORS, SHADOW } from '../../theme';
 
 const IMAGE_HEIGHT = 123;
-const CARD_HEIGHT = 170;
+const CARD_HEIGHT = 160;
 const BORDER_RADIUS = 8;
 
 const styles = StyleSheet.create({
