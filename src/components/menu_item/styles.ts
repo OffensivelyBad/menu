@@ -1,23 +1,30 @@
 import { StyleSheet } from 'react-native';
 import { THEME_COLORS, SHADOW } from '../../theme';
 
-const CARD_HEIGHT = 123;
+const IMAGE_HEIGHT = 123;
+const CARD_HEIGHT = 160;
 const BORDER_RADIUS = 8;
 
 const styles = StyleSheet.create({
   container: {
     width: '96%',
     backgroundColor: THEME_COLORS.contentBackground,
-    flexDirection: 'row',
     height: CARD_HEIGHT,
     borderRadius: BORDER_RADIUS,
     marginVertical: 4,
     alignSelf: 'center',
+    justifyContent: 'space-around',
+    alignItems: 'center',
     ...SHADOW,
   },
+  subContainer: {
+    backgroundColor: THEME_COLORS.contentBackground,
+    flexDirection: 'row',
+    alignSelf: 'center',
+  },
   image: {
-    height: CARD_HEIGHT,
-    width: CARD_HEIGHT,
+    height: IMAGE_HEIGHT,
+    width: IMAGE_HEIGHT,
     marginEnd: 15,
     borderTopLeftRadius: BORDER_RADIUS,
     borderBottomLeftRadius: BORDER_RADIUS,
@@ -37,6 +44,10 @@ const styles = StyleSheet.create({
   },
   description: {
     fontSize: 15,
+    color: 'gray',
+  },
+  imageURL: {
+    fontSize: 12,
     color: 'gray',
   },
   deleteButton: {

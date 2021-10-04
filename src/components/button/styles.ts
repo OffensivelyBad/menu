@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 24,
-    color: THEME_COLORS.background,
+    color: THEME_COLORS.contentBackground,
     textAlign: 'center',
   },
 });

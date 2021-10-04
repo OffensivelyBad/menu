@@ -1,6 +1,6 @@
 import create from 'zustand';
 import { MenuItemModel } from '.';
-import { removeMenuItem } from '../utils';
+import { removeMenuItem, replaceMenuItem } from '../utils';
 
 type MenuItemStore = {
   items: MenuItemModel[];
@@ -8,6 +8,7 @@ type MenuItemStore = {
   addItems: (items: MenuItemModel[]) => void;
   removeItem: (item: MenuItemModel) => void;
   removeAllItems: () => void;
+  replaceItem: (oldItem: MenuItemModel, newItem: MenuItemModel) => void;
 };
 
 export const useMenuItemStore = create<MenuItemStore>(set => ({
@@ -16,4 +17,5 @@ export const useMenuItemStore = create<MenuItemStore>(set => ({
   addItems: (items: MenuItemModel[]) => set(state => ({ items: [...items, ...state.items] })),
   removeItem: (item: MenuItemModel) => set(state => ({ items: removeMenuItem(item, state.items) })),
   removeAllItems: () => set(() => ({ items: [] })),
+  replaceItem: (oldItem: MenuItemModel, newItem: MenuItemModel) => set(state => ({ items: replaceMenuItem(oldItem, newItem, state.items) })),
 }));

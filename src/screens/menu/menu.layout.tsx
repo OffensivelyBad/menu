@@ -1,17 +1,19 @@
 import * as React from 'react';
-import { View, FlatList, ActivityIndicator, Text } from 'react-native';
+import { View, FlatList } from 'react-native';
 import MenuItem from '../../components/menu_item';
 import { MenuItemModel } from '../../models';
 import styles from './styles';
 
 type Props = {
   menuItems: MenuItemModel[];
-  loadingMessage?: string;
+  refreshing: boolean;
   onDeleteItem: (item: MenuItemModel) => void;
+  onUpdateItem: (currentItem: MenuItemModel, newItem: MenuItemModel) => void;
+  onRefresh: () => void;
 }
 
 const MenuLayout = (props: Props) => {
-  const { menuItems, loadingMessage, onDeleteItem } = props;
+  const { menuItems, refreshing, onDeleteItem, onUpdateItem, onRefresh } = props;
 
   const renderItem = (item: MenuItemModel) => {
     const { id } = item;
@@ -20,25 +22,21 @@ const MenuLayout = (props: Props) => {
         key={id}
         item={item}
         onDelete={onDeleteItem}
+        updateItem={onUpdateItem}
       />
     );
   };
 
   return (
     <View style={styles.container}>
-      {loadingMessage ? (
-        <>
-          <Text style={styles.loadingMessage}>{loadingMessage}</Text>
-          <ActivityIndicator />
-        </>
-      ) : (
-        <FlatList
-          data={menuItems}
-          renderItem={({ item }) => renderItem(item)}
-          keyExtractor={item => item.id}
-          contentContainerStyle={styles.listContainer}
-        />
-      )}
+      <FlatList
+        data={menuItems}
+        renderItem={({ item }) => renderItem(item)}
+        keyExtractor={item => item.id}
+        contentContainerStyle={styles.listContainer}
+        refreshing={refreshing}
+        onRefresh={onRefresh}
+      />
     </View>
   );
 };
