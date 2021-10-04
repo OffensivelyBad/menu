@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { View, Text, Image, Pressable } from 'react-native';
 import { Swipeable } from 'react-native-gesture-handler';
+import { isEqual } from 'lodash';
 import { MenuItemModel } from '../../models';
 import EditableText from '../editable_text/editable_text.layout';
 import styles from './styles';
@@ -24,7 +25,9 @@ const MenuItem = (props: Props) => {
   const [newImage, setNewImage] = React.useState(image);
 
   React.useEffect(() => {
-    updateItem ? updateItem(item, newItem) : null;
+    if (updateItem && !isEqual(item, newItem)) {
+      updateItem(item, newItem);
+    }
   }, [item, newItem, updateItem]);
 
   const onSubmit = React.useCallback(() => {

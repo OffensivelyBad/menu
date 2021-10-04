@@ -33,7 +33,7 @@ const Menu = (_props: MenuScreenProps) => {
         addItems(MenuItem_Test);
       }, 1000);
     } else {
-      // TODO: fetch data
+      // TODO: fetch data from server
     }
   }, [addItems, removeAllItems]);
 
