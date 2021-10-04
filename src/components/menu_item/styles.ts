@@ -23,8 +23,9 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: BORDER_RADIUS,
   },
   content: {
-    justifyContent: 'space-around',
     flex: 1,
+    justifyContent: 'space-around',
+    padding: 2,
   },
   title: {
     fontSize: 18,
@@ -37,6 +38,20 @@ const styles = StyleSheet.create({
   description: {
     fontSize: 15,
     color: 'gray',
+  },
+  deleteButton: {
+    width: 100,
+    backgroundColor: 'red',
+    height: CARD_HEIGHT,
+    borderRadius: BORDER_RADIUS,
+    marginVertical: 4,
+    alignSelf: 'center',
+    marginEnd: 8,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  deleteText: {
+    color: 'white',
   },
 });
 
